@@ -2,33 +2,33 @@
 GET http://localhost:3000/tasks
 
 ### Get one tasks
-GET http://localhost:3000/tasks/647171a5f59cb131779eb230
+GET http://localhost:3000/tasks/6471770dca63c1f94d3a32ea
 
 ### Add a task
 POST http://localhost:3000/tasks
 Content-Type: application/json
 
 {
-    "taskName": "homework",
+    "taskName": "something awesome",
     "priority": "1"
 }
 
 
 ### Update a task
-PUT http://localhost:3000/tasks/647171a5f59cb131779eb230
+PUT http://localhost:3000/tasks/6471770dca63c1f94d3a32ea
 Content-Type: application/json
 
 {
-    "taskName": "homework",
+    "taskName": "school",
     "priority": "2"
 }
 
 ### Delete task
-DELETE http://localhost:3000/tasks/6470ef712624118ba2006a5e
+DELETE http://localhost:3000/tasks/6471770dca63c1f94d3a32ea
 
 
 
-### PRODUCTION ENVIRONMENT
+### PRODUCTION ENVIRONMENT TASKS
 ### Get all contacts
 GET https://calendar-av0w.onrender.com/tasks
 
@@ -53,3 +53,47 @@ Content-Type: application/json
 
 ### Delete task
 DELETE https://calendar-av0w.onrender.com/6470ef712624118ba2006a5e
+
+
+
+
+
+
+### LOCAL ENVIRONMENT ACTIVITES
+### Get all activities
+GET http://localhost:3000/activities
+
+### Get one activities
+GET http://localhost:3000/activities/64717c0cb746412573240ccd
+
+### Add a task
+POST http://localhost:3000/activities
+Content-Type: application/json
+
+{
+    "activityName": "required|string",
+    "description": "required|string",
+    "startDate": "required|string",
+    "endDate": "required|string",
+    "startTime": "required|string",
+    "endTime": "string",
+    "location": "string"
+}
+
+
+### Update a task
+PUT http://localhost:3000/activities/64717c0cb746412573240ccd
+Content-Type: application/json
+
+{
+    "activityName": "an actual name",
+    "description": "required|string",
+    "startDate": "required|string",
+    "endDate": "required|string",
+    "startTime": "required|string",
+    "endTime": "string",
+    "location": "string"
+}
+
+### Delete task
+DELETE http://localhost:3000/activities/64717c0cb746412573240ccd

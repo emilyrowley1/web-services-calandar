@@ -5,7 +5,7 @@ const doc = {
     title: 'Calendar',
     description: 'My calendar api',
   },
-//   host: 'localhost:3000',
+  // host: 'localhost:3000',
   host: 'calendar-av0w.onrender.com',
   schemes: ['http', 'https'],
 };

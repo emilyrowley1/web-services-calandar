@@ -6,13 +6,13 @@ const getAll = async (req, res) => {
         .getDb()
         .db()
         .collection('tasks')
-        .find()
-        .toArray((err, lists) => {
+        .find().toArray().then((err, lists) => {
             if (err) {
                 res.status(400).json({message: err});
+            } else {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(200).json(lists);
             }
-            res.setHeader('Content-Type', 'application/json');
-            res.status(200).json(lists);
         });
 };
 
@@ -26,7 +26,7 @@ const getOne = async (req, res, next) => {
       .db()
       .collection('tasks')
       .find({ _id: taskId })
-      .toArray((err, result) => {
+      .toArray().then((err, result) => {
         if (err) {
             res.status(400).json({message: err});
         }
@@ -43,7 +43,7 @@ const createTask = async (req, res) => {
     const result = await mongodb.getDb().db().collection('tasks').insertOne(task);
 
     if (result.acknowledged) {
-        res.status(201).json(result);
+        res.status(200).json(result);
     } else {
         res.status(500).json(response.error || 'Some error occurred while create a task');
     }
@@ -79,7 +79,7 @@ const deleteTask = async (req, res, next) => {
       .deleteOne({ _id: taskId });
   
       if (result.deletedCount > 0) {
-        res.status(204).send();
+        res.status(200).send();
       } else {
         res.status(500).json(result.error || 'Some error occurred while deleting the task.');
       }
