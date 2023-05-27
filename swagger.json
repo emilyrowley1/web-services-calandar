@@ -5,13 +5,20 @@
     "description": "My calendar api",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "calendar-av0w.onrender.com",
   "basePath": "/",
   "schemes": [
     "http",
     "https"
   ],
   "paths": {
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/tasks/": {
       "get": {
         "description": "",
@@ -68,7 +75,11 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       },
       "put": {
         "description": "",
