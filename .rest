@@ -1,6 +1,9 @@
 ### Get all tasks
 GET http://localhost:3000/tasks
 
+### Get one tasks
+GET http://localhost:3000/tasks/647171a5f59cb131779eb230
+
 ### Add a task
 POST http://localhost:3000/tasks
 Content-Type: application/json
@@ -12,7 +15,7 @@ Content-Type: application/json
 
 
 ### Update a task
-PUT http://localhost:3000/tasks/6470eef42624118ba2006a5d
+PUT http://localhost:3000/tasks/647171a5f59cb131779eb230
 Content-Type: application/json
 
 {

@@ -2,23 +2,36 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
-    const result = await mongodb.getDb().db().collection('tasks').find();
-    result.toArray().then((lists) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists);
-    });
+    const result = await mongodb
+        .getDb()
+        .db()
+        .collection('tasks')
+        .find()
+        .toArray((err, lists) => {
+            if (err) {
+                res.status(400).json({message: err});
+            }
+            res.setHeader('Content-Type', 'application/json');
+            res.status(200).json(lists);
+        });
 };
 
 const getOne = async (req, res, next) => {
+    if (!ObjectId.isValid(req.params.id)){
+        res.status(400).json('Must be a valid ID to get a task');
+    }
     const taskId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDb()
       .db()
       .collection('tasks')
-      .find({ _id: taskId });
-    result.toArray().then((lists) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists[0]);
+      .find({ _id: taskId })
+      .toArray((err, result) => {
+        if (err) {
+            res.status(400).json({message: err});
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(result[0]);
     });
   };
 
@@ -37,6 +50,9 @@ const createTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)){
+        res.status(400).json('Must be a valid ID to update a task.');
+    }
     const taskId = new ObjectId(req.params.id);
     const task = {
         taskName: req.body.taskName,
@@ -52,6 +68,9 @@ const updateTask = async (req, res) => {
 };
 
 const deleteTask = async (req, res, next) => {
+    if (!ObjectId.isValid(req.params.id)){
+        res.status(400).json('Must be a valid ID to delete task.');
+    }
     const taskId = new ObjectId(req.params.id);
     const result = await mongodb
       .getDb()
@@ -60,7 +79,7 @@ const deleteTask = async (req, res, next) => {
       .deleteOne({ _id: taskId });
   
       if (result.deletedCount > 0) {
-        res.status(200).send();
+        res.status(204).send();
       } else {
         res.status(500).json(result.error || 'Some error occurred while deleting the task.');
       }
